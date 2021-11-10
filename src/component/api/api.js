@@ -43,4 +43,9 @@ export const upcomingGamesURL = () => `${base_api}${upcoming_games}`;
 export const newGamesURL = () => `${base_api}${newGames}`;
 //game_details
 export const detailsUrl = (game_id) =>
-  `${base_api}games?/${game_id}&key=0a246766e9ea43ddb0a6127be81a50be`;
+  `${base_api}games/${game_id}?key=0a246766e9ea43ddb0a6127be81a50be`;
+export const gameSSUrl = (game_id) =>
+  `${base_api}games/${game_id}/screenshots?key=0a246766e9ea43ddb0a6127be81a50be`;
+export const searchGameUrl = (game_name) =>
+  `${base_api}games?page_size=9&search=${game_name}&key=0a246766e9ea43ddb0a6127be81a50be`;
+// games?page_size=6&search=valorant&key=0a246766e9ea43ddb0a6127be81a50be

@@ -17,7 +17,7 @@ html{
 }
 body{
     font-family:'Raleway',sans-serif;
-    with:100%;
+    width:100%;
     }
     h2{
         font-size:3rem;
@@ -28,14 +28,23 @@ body{
     h3{
         font-size:1.3rem;
         color:#333;
-        padding:1.5rem;
+        padding:1.5rem 0rem;
     }
     p{
         font-size:1.2rem;
         line-height:200%;
         color:#696969;
-       }
-}
-
+    }
+    a{
+        text-decoration:none;
+        color:#333;
+    }
+    img{
+        diplay:block;
+    }
+    input{
+    font-weight:bold;
+    font-family:'Raleway',sans-serif';
+    }
 `;
 export default GlobalStyles;

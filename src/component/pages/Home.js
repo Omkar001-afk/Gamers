@@ -1,21 +1,52 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadGames } from "../actions/gameAction";
+import { loadGames } from "../reduxFiles/actions/gameAction";
 import Game from "../card/Game";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
 import styled from "styled-components";
 import { upcomingGamesURL } from "../api/api";
+import GameDetial from "../card/GameDetial";
+import { useLocation } from "react-router";
+import { fadeIn } from "../anim/anim";
 
 const Home = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const pathId = location.pathname.split("/")[2];
+  // console.log(pathId);
 
   useEffect(() => {
     dispatch(loadGames());
   }, [dispatch]);
-  const { popular, newGames, upcoming } = useSelector((state) => state.games);
+
+  const { popular, newGames, upcoming, search } = useSelector(
+    (state) => state.games
+  );
 
   return (
-    <GameList>
+    <GameList variants={fadeIn} initial="hidden" animate="show">
+      {pathId && <GameDetial />}
+
+      {search.length ? (
+        <div className="search">
+          <h2>Searched Games</h2>
+          <Games>
+            {search.map((game) => (
+              <Game
+                name={game.name}
+                released={game.released}
+                id={game.id}
+                rating={game.rating}
+                image={game.background_image}
+                key={game.id}
+              />
+            ))}
+          </Games>
+        </div>
+      ) : (
+        ""
+      )}
+
       <h2>Upcoming Games</h2>
       <Games>
         {upcoming.map((game) => (
@@ -28,10 +59,11 @@ const Home = () => {
             key={game.id}
           />
         ))}
-      </Games>{" "}
-      <h2>New Games</h2>
+      </Games>
+
+      <h2>Popular Games</h2>
       <Games>
-        {newGames.map((game) => (
+        {popular.map((game) => (
           <Game
             name={game.name}
             released={game.released}
@@ -41,10 +73,11 @@ const Home = () => {
             key={game.id}
           />
         ))}
-      </Games>{" "}
-      <h2>Popular Games</h2>
+      </Games>
+
+      <h2>New Games</h2>
       <Games>
-        {popular.map((game) => (
+        {newGames.map((game) => (
           <Game
             name={game.name}
             released={game.released}
